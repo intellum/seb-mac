@@ -45,6 +45,7 @@
 @private
     NSRect frameForNonFullScreenMode;
     BOOL dragStarted;
+    BOOL resetWindowPosition;
     NSPoint dragCursorStartPosition;
 }
 
