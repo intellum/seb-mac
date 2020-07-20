@@ -3110,7 +3110,7 @@ bool insideMatrix(){
 //        [self startKioskMode];
 #endif
     } else {
-        /*/ Save the bundle ID of all currently running apps which are visible in a array
+        // Save the bundle ID of all currently running apps which are visible in a array
         NSArray *runningApps = [[NSWorkspace sharedWorkspace] runningApplications];
         NSRunningApplication *iterApp;
         NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
@@ -3118,8 +3118,15 @@ bool insideMatrix(){
         for (iterApp in runningApps)
         {
             BOOL isActive = [iterApp isActive];
+            #ifdef DEBUG
+            NSArray *allowedBundleIDs = [NSArray arrayWithObjects:@"com.logmein.GoToMeeting", @"com.apple.dt.Xcode", nil];
+            #else
+            NSArray *allowedBundleIDs = [NSArray arrayWithObjects:@"com.logmein.GoToMeeting", nil];
+            #endif
             NSString *appBundleID = [iterApp valueForKey:@"bundleIdentifier"];
-            if ((appBundleID != nil) & ![appBundleID isEqualToString:bundleId] & ![appBundleID isEqualToString:@"com.apple.Preview"]) {
+            if ((appBundleID != nil)
+                & ![appBundleID isEqualToString:bundleId]
+                & ![allowedBundleIDs containsObject:appBundleID]) {
                 //& isActive
                 BOOL successfullyHidden = [iterApp hide]; //hide the active app
 #ifdef DEBUG
@@ -3127,7 +3134,6 @@ bool insideMatrix(){
 #endif
             }
         }
-*/
     }
 }
 
@@ -4350,7 +4356,6 @@ bool insideMatrix(){
         DDLogWarn(@"isActive property of SEB changed!");
         [self regainActiveStatus:nil];
 //            [self appLaunch:nil];
-        }
     }
 }
 
