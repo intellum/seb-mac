@@ -3059,7 +3059,7 @@ bool insideMatrix(){
         NSString *bundleId = [bundleInfo objectForKey: @"CFBundleIdentifier"];
         for (iterApp in runningApps)
         {
-            BOOL isActive = [iterApp isActive];
+            //BOOL isActive = [iterApp isActive];
             #ifdef DEBUG
             NSArray *allowedBundleIDs = [NSArray arrayWithObjects:@"com.logmein.GoToMeeting", @"com.apple.dt.Xcode", nil];
             #else
@@ -4286,8 +4286,8 @@ bool insideMatrix(){
             DDLogWarn(@"isActive property of SEB changed!");
             [self regainActiveStatus:nil];
 //            [self appLaunch:nil];
+        }
     }
 }
-
 
 @end
