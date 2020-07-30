@@ -1,0 +1,13 @@
+{
+  "title": "Safe Exam Browser",
+  "icon": "Resources/Icons/SEBicon.icns",
+  "background": "Resources/Images/DMG-Background.png",
+  "contents": [
+    { "x": 380, "y": 100, "type": "link", "path": "/Applications" },
+    { "x": 92, "y": 100, "type": "file", "path": "Safe Exam Browser.app" }
+  ],
+  "window": { "size": { "width": 480, "height": 240 } },
+  "code-sign": {
+    "signing-identity" : "Developer ID Application: Intellum, Inc. (JYANFLU7NT)"
+  }
+}
