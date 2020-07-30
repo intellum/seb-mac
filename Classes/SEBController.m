@@ -3265,7 +3265,6 @@ bool insideMatrix(){
                 NSString *argument = [[meetingID[@"argument"] componentsSeparatedByCharactersInSet:nonDigitCharacterSet] componentsJoinedByString:@""];
                 NSString *launch = [NSString stringWithFormat:@"gotomeeting://SALaunch?Action=join&MeetingID=%@", argument];
                 [NSWorkspace.sharedWorkspace openURL:[NSURL URLWithString:launch]];
-                NSLog(@"%@", argument);
             }
         }
     }
