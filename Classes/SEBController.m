@@ -807,6 +807,8 @@ bool insideMatrix(void);
     // Switch to kiosk mode by setting the proper presentation options
     [self startKioskMode];
     
+    [self startPermittedProcesses];
+    
     // Clear pasteboard and save current string for pasting start URL in Preferences Window
     [self clearPasteboardSavingCurrentString];
 
@@ -3247,6 +3249,25 @@ bool insideMatrix(){
     DDLogDebug(@"startKioskMode switchToApplications %hhd", allowSwitchToThirdPartyApps);
     [self startKioskModeThirdPartyAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
 
+}
+
+- (void) startPermittedProcesses {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSArray* permittedProcessPreferences = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_permittedProcesses"];
+    for (NSDictionary *permittedProcess in permittedProcessPreferences) {
+        NSArray *arguments = permittedProcess[@"arguments"];
+        if(arguments != nil) {
+            NSPredicate *filterProcessName = [NSPredicate predicateWithFormat:@"argument contains[c] %@ ", @"/MeetingID "];
+            NSArray *meetingIDs = [arguments filteredArrayUsingPredicate:filterProcessName];
+            if(meetingIDs.count > 0) {
+                NSDictionary *meetingID = meetingIDs[0];
+                NSString *argument = [meetingID[@"argument"] stringByReplacingOccurrencesOfString:@"/MeetingID " withString:@""];
+                NSString *launch = [NSString stringWithFormat:@"gotomeeting://SALaunch?Action=join&MeetingID=%@", argument];
+                [NSWorkspace.sharedWorkspace openURL:[NSURL URLWithString:launch]];
+                NSLog(@"%@", argument);
+            }
+        }
+    }
 }
 
 
