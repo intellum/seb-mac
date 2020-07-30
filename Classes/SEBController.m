@@ -3261,7 +3261,8 @@ bool insideMatrix(){
             NSArray *meetingIDs = [arguments filteredArrayUsingPredicate:filterProcessName];
             if(meetingIDs.count > 0) {
                 NSDictionary *meetingID = meetingIDs[0];
-                NSString *argument = [meetingID[@"argument"] stringByReplacingOccurrencesOfString:@"/MeetingID " withString:@""];
+                NSCharacterSet *nonDigitCharacterSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+                NSString *argument = [[meetingID[@"argument"] componentsSeparatedByCharactersInSet:nonDigitCharacterSet] componentsJoinedByString:@""];
                 NSString *launch = [NSString stringWithFormat:@"gotomeeting://SALaunch?Action=join&MeetingID=%@", argument];
                 [NSWorkspace.sharedWorkspace openURL:[NSURL URLWithString:launch]];
                 NSLog(@"%@", argument);
