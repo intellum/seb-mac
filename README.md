@@ -15,3 +15,12 @@ For your information: There is only ONE correct way how to spell SEB (all three 
 - Upload for notorization
 - After you get the confirmation email, export it to the root of the repo.
 - run `appdmg dmg.json SafeExamBrowser-2.1.4-intellum.dmg` or similar.
+
+
+## Testing
+1. If supplied with a MeetingID in the permitted applications it should open GoToMeeting with that ID.
+1. If a MeetingID is supplied and GoToMeeting is not installed we should show a warning and the quit.
+1. If no MeetingID has been supplied GoToMeeting should not be opened.
+1. Switch to GoToMeeting and back with `command-tab`. Try the same with finder or another app. 
+1. Open Notes in fullscreen mode. Open SEB and then switch to Notes with a four finger swipe. SEB should regain the focus.
+1. Click on a `gotomeeting://` link in the browser and make sure it opens GoToMeeting.
