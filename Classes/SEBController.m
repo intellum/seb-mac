@@ -2120,6 +2120,19 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     return cmdKeyDown;
 }
 
+-(void)showGoToMeetingNotInstalledError
+{
+    NSAlert *modalAlert = [self newAlert];
+    [modalAlert setMessageText:NSLocalizedString(@"GoToMeeting is not installed!", nil)];
+    [modalAlert setInformativeText:NSLocalizedString(@"This evalutation requires GoToMeeting. Please download and install it.", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [modalAlert setAlertStyle:NSCriticalAlertStyle];
+    NSInteger answer = [modalAlert runModal];
+    [self removeAlertWindow:modalAlert.window];
+    quittingMyself = TRUE; //SEB is terminating itself
+    [NSApp terminate: nil]; //quit SEB
+}
+
 
 // Check if the Force Quit window is open
 - (void)forceQuitWindowCheck
@@ -3256,16 +3269,35 @@ bool insideMatrix(){
     NSArray* permittedProcessPreferences = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_permittedProcesses"];
     for (NSDictionary *permittedProcess in permittedProcessPreferences) {
         NSArray *arguments = permittedProcess[@"arguments"];
-        if(arguments != nil) {
-            NSPredicate *filterProcessName = [NSPredicate predicateWithFormat:@"argument contains[c] %@ ", @"/MeetingID "];
-            NSArray *meetingIDs = [arguments filteredArrayUsingPredicate:filterProcessName];
-            if(meetingIDs.count > 0) {
-                NSDictionary *meetingID = meetingIDs[0];
-                NSCharacterSet *nonDigitCharacterSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
-                NSString *argument = [[meetingID[@"argument"] componentsSeparatedByCharactersInSet:nonDigitCharacterSet] componentsJoinedByString:@""];
+        NSString *identifier = permittedProcess[@"identifier"];
+        NSString *title = permittedProcess[@"title"];
+        BOOL isGoToMeeting = [[identifier lowercaseString] isEqualToString:@"gotomeeting"]
+                                || [[title lowercaseString] isEqualToString:@"gotomeeting"];
+        if(isGoToMeeting && arguments != nil) {
+            [self startGoToMeeting:arguments];
+        }
+    }
+}
+
+- (void) startGoToMeeting:(NSArray *)arguments {
+    NSPredicate *filterProcessName = [NSPredicate predicateWithFormat:@"argument contains[c] %@ ", @"/MeetingID "];
+    NSArray *meetingIDs = [arguments filteredArrayUsingPredicate:filterProcessName];
+    if(meetingIDs.count > 0) {
+        NSDictionary *meetingID = meetingIDs[0];
+        NSCharacterSet *nonDigitCharacterSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+        NSString *argument = [[meetingID[@"argument"] componentsSeparatedByCharactersInSet:nonDigitCharacterSet] componentsJoinedByString:@""];
+        
+        if(argument.length > 0) {
+            NSString *path = [[NSWorkspace sharedWorkspace] fullPathForApplication:@"GoToMeeting"];
+            BOOL isGoToMeetingInstalled = path != nil;
+//            if(isGoToMeetingInstalled) {
                 NSString *launch = [NSString stringWithFormat:@"gotomeeting://SALaunch?Action=join&MeetingID=%@", argument];
-                [NSWorkspace.sharedWorkspace openURL:[NSURL URLWithString:launch]];
-            }
+                if(![NSWorkspace.sharedWorkspace openURL:[NSURL URLWithString:launch]]) {
+                    [self showGoToMeetingNotInstalledError];
+                }
+//            } else {
+//                [self showGoToMeetingNotInstalledError];
+//            }
         }
     }
 }
