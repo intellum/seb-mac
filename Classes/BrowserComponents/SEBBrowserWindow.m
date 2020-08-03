@@ -97,6 +97,9 @@
 // Setup browser window and webView delegates
 - (void) awakeFromNib
 {
+    
+    [self setSharingType:NSWindowSharingNone];
+    
     // Display or don't display toolbar
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     // No toolbar on full screen window
