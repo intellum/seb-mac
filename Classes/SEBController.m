@@ -3074,7 +3074,7 @@ bool insideMatrix(){
         NSString *bundleId = [bundleInfo objectForKey: @"CFBundleIdentifier"];
         for (iterApp in runningApps)
         {
-            //BOOL isActive = [iterApp isActive];
+            BOOL isActive = [iterApp isActive];
             #ifdef DEBUG
             NSArray *allowedBundleIDs = [NSArray arrayWithObjects:@"com.logmein.GoToMeeting", @"com.apple.dt.Xcode", nil];
             #else
@@ -3086,6 +3086,9 @@ bool insideMatrix(){
                 & ![allowedBundleIDs containsObject:appBundleID]) {
                 //& isActive
                 BOOL successfullyHidden = [iterApp hide]; //hide the active app
+                if(isActive) {
+                    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+                }
 #ifdef DEBUG
                 DDLogInfo(@"Successfully hidden app %@: %@", appBundleID, [NSNumber numberWithBool:successfullyHidden]);
 #endif
