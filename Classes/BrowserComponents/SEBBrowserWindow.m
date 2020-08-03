@@ -1629,6 +1629,13 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         }
     }
 
+    // Check if this is a gotomeeting:// link
+    if ([request.URL.scheme isEqualToString:@"gotomeeting"]) {
+        if([NSWorkspace.sharedWorkspace openURL:request.URL]) {
+            return;
+        }
+    }
+
     [listener use];
 }
 
