@@ -3283,28 +3283,31 @@ bool insideMatrix(){
 }
 
 - (void) startGoToMeeting:(NSArray *)arguments {
-    NSPredicate *filterProcessName = [NSPredicate predicateWithFormat:@"argument contains[c] %@ ", @"/MeetingID "];
+    NSString *meetingID = [self get:@"/MeetingID" from:arguments];
+    if(meetingID != nil) {
+        NSString *launch = [NSString stringWithFormat:@"gotomeeting://SALaunch?Action=join&MeetingID=%@", meetingID];
+
+        NSString *userID = [self get:@"/UserID" from: arguments];
+        if(userID != nil) {
+            launch = [NSString stringWithFormat:@"gotomeeting://SALaunch?Action=join&MeetingID=%@&UserID=%@", meetingID, userID];
+        }
+        if(![NSWorkspace.sharedWorkspace openURL:[NSURL URLWithString:launch]]) {
+            [self showGoToMeetingNotInstalledError];
+        }
+    }
+}
+
+- (NSString *)get: (NSString *)key from:(NSArray *)arguments {
+    NSPredicate *filterProcessName = [NSPredicate predicateWithFormat:@"argument contains[c] %@ ", key];
     NSArray *meetingIDs = [arguments filteredArrayUsingPredicate:filterProcessName];
     if(meetingIDs.count > 0) {
         NSDictionary *meetingID = meetingIDs[0];
         NSCharacterSet *nonDigitCharacterSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
         NSString *argument = [[meetingID[@"argument"] componentsSeparatedByCharactersInSet:nonDigitCharacterSet] componentsJoinedByString:@""];
-        
-        if(argument.length > 0) {
-            NSString *path = [[NSWorkspace sharedWorkspace] fullPathForApplication:@"GoToMeeting"];
-            BOOL isGoToMeetingInstalled = path != nil;
-//            if(isGoToMeetingInstalled) {
-                NSString *launch = [NSString stringWithFormat:@"gotomeeting://SALaunch?Action=join&MeetingID=%@", argument];
-                if(![NSWorkspace.sharedWorkspace openURL:[NSURL URLWithString:launch]]) {
-                    [self showGoToMeetingNotInstalledError];
-                }
-//            } else {
-//                [self showGoToMeetingNotInstalledError];
-//            }
-        }
+        return argument;
     }
+    return nil;
 }
-
 
 - (void) switchKioskModeAppsAllowed:(BOOL)allowApps overrideShowMenuBar:(BOOL)overrideShowMenuBar {
 	// Switch the kiosk mode to either only browser windows or also third party apps allowed:

@@ -47,7 +47,7 @@
 	<key>allowUserSwitching</key>
 	<false/>
 	<key>allowVideoCapture</key>
-	<true/>
+	<false/>
 	<key>allowVirtualMachine</key>
 	<true/>
 	<key>allowWlan</key>
@@ -355,7 +355,13 @@
 					<key>active</key>
 					<true/>
 					<key>argument</key>
-					<string>"/MeetingID 790128973"</string>
+					<string>"/MeetingID 251248524"</string>
+				</dict>
+				<dict>
+					<key>active</key>
+					<true/>
+					<key>argument</key>
+					<string>"/UserID 107172335"</string>
 				</dict>
 			</array>
 			<key>autohide</key>
@@ -562,7 +568,7 @@
 	<key>showTime</key>
 	<true/>
 	<key>startURL</key>
-	<string>https://intellum.exceed.simon-rentzke.dev.intellum.com/student/safe_exam_browser/director/users/139/enrollments/693/token/QEoaqdWwWhp6LkZAKcCEKFff</string>
+	<string>https://intellum.exceed.simon-rentzke.dev.intellum.com/student/safe_exam_browser/director/users/139/enrollments/693/token/YkS4gHh1aJYECNwoHRSg52Lc</string>
 	<key>startURLAllowDeepLink</key>
 	<false/>
 	<key>startURLAppendQueryParameter</key>

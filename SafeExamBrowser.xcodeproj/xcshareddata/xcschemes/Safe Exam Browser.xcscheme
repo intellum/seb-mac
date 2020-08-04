@@ -52,7 +52,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "/Users/stephenwilliams/Code/Intellum/seb-mac/config.seb"
+            argument = "/Users/stephenwilliams/Code/Intellum/seb-mac/example-config.seb"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
