@@ -355,14 +355,12 @@
 					<key>active</key>
 					<true/>
 					<key>argument</key>
-					<string>"/MeetingID 251248524"</string>
+					<string>"/MeetingID 790128973"</string>
 				</dict>
-				<dict>
-					<key>active</key>
-					<true/>
-					<key>argument</key>
-					<string>"/UserID 107172335"</string>
-				</dict>
+				<!-- The <data> element below contains a Ruby object which has been serialized with Marshal.dump. -->
+				<data>
+				BAgw
+				</data>
 			</array>
 			<key>autohide</key>
 			<false/>
@@ -568,7 +566,7 @@
 	<key>showTime</key>
 	<true/>
 	<key>startURL</key>
-	<string>https://intellum.exceed.simon-rentzke.dev.intellum.com/student/safe_exam_browser/director/users/139/enrollments/693/token/YkS4gHh1aJYECNwoHRSg52Lc</string>
+	<string>https://intellum.exceed.simon-rentzke.dev.intellum.com/student/safe_exam_browser/director/users/97/enrollments/463/token/AW6da9DyQr681vKgdmA7G1ME</string>
 	<key>startURLAllowDeepLink</key>
 	<false/>
 	<key>startURLAppendQueryParameter</key>

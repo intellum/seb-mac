@@ -796,6 +796,8 @@ bool insideMatrix(void);
     [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
     
     
+    [self startPermittedProcesses];
+    
     /// Kiosk mode checks
     
     // Check if running on minimal macOS version
@@ -806,8 +808,6 @@ bool insideMatrix(void);
     
     // Switch to kiosk mode by setting the proper presentation options
     [self startKioskMode];
-    
-    [self startPermittedProcesses];
     
     // Clear pasteboard and save current string for pasting start URL in Preferences Window
     [self clearPasteboardSavingCurrentString];
@@ -3298,15 +3298,21 @@ bool insideMatrix(){
 }
 
 - (NSString *)get: (NSString *)key from:(NSArray *)arguments {
-    NSPredicate *filterProcessName = [NSPredicate predicateWithFormat:@"argument contains[c] %@ ", key];
-    NSArray *meetingIDs = [arguments filteredArrayUsingPredicate:filterProcessName];
-    if(meetingIDs.count > 0) {
-        NSDictionary *meetingID = meetingIDs[0];
-        NSCharacterSet *nonDigitCharacterSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
-        NSString *argument = [[meetingID[@"argument"] componentsSeparatedByCharactersInSet:nonDigitCharacterSet] componentsJoinedByString:@""];
-        return argument;
+    NSString *argumentValue = nil;
+    for (id arg in arguments) {
+        if([arg isKindOfClass: [NSDictionary class]]) {
+            NSString *argument = [(NSDictionary *)arg objectForKey:@"argument"];
+            if([argument containsString:key]) {
+                argumentValue = argument;
+            }
+        }
     }
-    return nil;
+    if(argumentValue == nil) {
+        return nil;
+    }
+
+    NSCharacterSet *nonDigitCharacterSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+    return [[argumentValue componentsSeparatedByCharactersInSet:nonDigitCharacterSet] componentsJoinedByString:@""];
 }
 
 - (void) switchKioskModeAppsAllowed:(BOOL)allowApps overrideShowMenuBar:(BOOL)overrideShowMenuBar {
