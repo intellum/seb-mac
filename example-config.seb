@@ -173,7 +173,7 @@
 	<key>enablePlugIns</key>
 	<true/>
 	<key>enablePrintScreen</key>
-	<true/>
+  <true/>
 	<key>enablePrivateClipboard</key>
 	<true/>
 	<key>enableRightMouse</key>
@@ -566,7 +566,7 @@
 	<key>showTime</key>
 	<true/>
 	<key>startURL</key>
-	<string>https://intellum.exceed.simon-rentzke.dev.intellum.com/student/safe_exam_browser/director/users/97/enrollments/463/token/AW6da9DyQr681vKgdmA7G1ME</string>
+  <string>http://localhost:9001/</string>
 	<key>startURLAllowDeepLink</key>
 	<false/>
 	<key>startURLAppendQueryParameter</key>

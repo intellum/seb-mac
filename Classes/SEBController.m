@@ -796,7 +796,7 @@ bool insideMatrix(void);
     [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
     
     
-    [self startPermittedProcesses];
+    [self startGotoMeetingFromThePermittedProcesses];
     
     /// Kiosk mode checks
     
@@ -3267,7 +3267,7 @@ bool insideMatrix(){
 
 }
 
-- (void) startPermittedProcesses {
+- (void) startGotoMeetingFromThePermittedProcesses {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSArray* permittedProcessPreferences = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_permittedProcesses"];
     for (NSDictionary *permittedProcess in permittedProcessPreferences) {
@@ -3553,7 +3553,15 @@ bool insideMatrix(){
         }
         
         // Set right dock items
-        
+
+        SEBDockItem *dockGotoMeeting = [[SEBDockItem alloc] initWithTitle:nil
+                                                                     icon:[NSImage imageNamed:@"SEBGotoMeetingIcon"]
+                                                          highlightedIcon:[NSImage imageNamed:@"SEBGotoMeetingIcon"]
+                                                                  toolTip:NSLocalizedString(@"GotoMeeting",nil)
+                                                                     menu:nil
+                                                                   target:self
+                                                                   action:@selector(startGotoMeetingFromThePermittedProcesses)];
+        [self.dockController setCenterItems:[NSArray arrayWithObjects:dockGotoMeeting, nil]];
 //        [self.dockController setCenterItems:[NSArray arrayWithObjects:dockItemSEB, dockItemShutDown, nil]];
         
         NSArray *dockButtons = [self.dockController setRightItems:rightDockItems];

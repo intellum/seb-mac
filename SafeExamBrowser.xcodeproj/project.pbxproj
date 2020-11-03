@@ -372,6 +372,7 @@
 		69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */; };
 		69FF14AC1A1BB10300912933 /* SEBFilterArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */; };
 		69FF14AD1A1BB10300912933 /* SEBFilterArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */; };
+		B11500E22551099400CB670C /* SEBGotoMeetingIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = B11500E12551099400CB670C /* SEBGotoMeetingIcon.iconset */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -819,6 +820,7 @@
 		69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsNetworkViewController.m; sourceTree = "<group>"; };
 		69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBFilterArrayController.h; sourceTree = "<group>"; };
 		69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBFilterArrayController.m; sourceTree = "<group>"; };
+		B11500E12551099400CB670C /* SEBGotoMeetingIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBGotoMeetingIcon.iconset; path = Resources/Icons/SEBGotoMeetingIcon.iconset; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1124,6 +1126,7 @@
 				69428CF1172F2E2500C87C58 /* ZoomTextIn@2x.png */,
 				69428CF2172F2E2500C87C58 /* ZoomTextOut.png */,
 				69428CF3172F2E2500C87C58 /* ZoomTextOut@2x.png */,
+				B11500E12551099400CB670C /* SEBGotoMeetingIcon.iconset */,
 				69A443FD1B14AAAC00577693 /* SEBReloadIcon.iconset */,
 				69A443FE1B14AAAC00577693 /* SEBRestartIcon.iconset */,
 				6902C96F1B0CF95E00715855 /* SEBShutDownIcon.iconset */,
@@ -1829,6 +1832,7 @@
 				69EA170319FA77A0001E0C51 /* Localizable.strings in Resources */,
 				69428CF8172F2E2500C87C58 /* ZoomTextOut.png in Resources */,
 				69428CFA172F2E2500C87C58 /* ZoomTextOut@2x.png in Resources */,
+				B11500E22551099400CB670C /* SEBGotoMeetingIcon.iconset in Resources */,
 				69DA91291C6A5CCF008D38E6 /* SEBRestartIconHighlighted.iconset in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2188,7 +2192,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = JYANFLU7NT;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2232,7 +2236,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = JYANFLU7NT;
 				ENABLE_HARDENED_RUNTIME = YES;
