@@ -180,6 +180,7 @@
 @property(strong, nonatomic) NSMutableArray *terminatedProcessesExecutableURLs;
 
 @property(strong) SEBDockItemButton *dockButtonReload;
+@property(readwrite) BOOL showGotoMeetingIconInTaskBar;
 
 - (void) didOpenSettings;
 

@@ -168,6 +168,7 @@ bool insideMatrix(void);
     if (self) {
         _modalAlertWindows = [NSMutableArray new];
         _startingUp = true;
+        _showGotoMeetingIconInTaskBar = NO;
         self.systemManager = [[SEBSystemManager alloc] init];
         
         // Initialize console loggers
@@ -3283,6 +3284,7 @@ bool insideMatrix(){
 }
 
 - (void) startGoToMeeting:(NSArray *)arguments {
+    _showGotoMeetingIconInTaskBar = YES;
     NSString *meetingID = [self get:@"/MeetingID" from:arguments];
     if(meetingID != nil) {
         NSString *launch = [NSString stringWithFormat:@"gotomeeting://SALaunch?Action=join&MeetingID=%@", meetingID];
@@ -3554,14 +3556,16 @@ bool insideMatrix(){
         
         // Set right dock items
 
-        SEBDockItem *dockGotoMeeting = [[SEBDockItem alloc] initWithTitle:nil
-                                                                     icon:[NSImage imageNamed:@"SEBGotoMeetingIcon"]
-                                                          highlightedIcon:[NSImage imageNamed:@"SEBGotoMeetingIcon"]
-                                                                  toolTip:NSLocalizedString(@"GotoMeeting",nil)
-                                                                     menu:nil
-                                                                   target:self
-                                                                   action:@selector(startGotoMeetingFromThePermittedProcesses)];
-        [self.dockController setCenterItems:[NSArray arrayWithObjects:dockGotoMeeting, nil]];
+        if(self.showGotoMeetingIconInTaskBar) {
+            SEBDockItem *dockGotoMeeting = [[SEBDockItem alloc] initWithTitle:nil
+                                                                         icon:[NSImage imageNamed:@"SEBGotoMeetingIcon"]
+                                                              highlightedIcon:[NSImage imageNamed:@"SEBGotoMeetingIcon"]
+                                                                      toolTip:NSLocalizedString(@"GotoMeeting",nil)
+                                                                         menu:nil
+                                                                       target:self
+                                                                       action:@selector(startGotoMeetingFromThePermittedProcesses)];
+            [self.dockController setCenterItems:[NSArray arrayWithObjects:dockGotoMeeting, nil]];
+        }
 //        [self.dockController setCenterItems:[NSArray arrayWithObjects:dockItemSEB, dockItemShutDown, nil]];
         
         NSArray *dockButtons = [self.dockController setRightItems:rightDockItems];
