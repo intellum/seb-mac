@@ -3173,6 +3173,10 @@ bool insideMatrix(){
 
 - (NSInteger) killApplication:(NSRunningApplication *)application
 {
+    NSString *appBundleID = [application valueForKey:@"bundleIdentifier"];
+    if ([appBundleID isEqualToString:@"com.logmein.GoToMeeting"]) {
+        return -1;
+    }
     NSString *appLocalizedName = application.localizedName;
     NSURL *appExecutableURL = application.executableURL;
     NSInteger killSuccess = [application kill];
